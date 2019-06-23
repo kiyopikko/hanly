@@ -1,30 +1,18 @@
 <template>
-  <button
-    class="btn"
-    :class="clr"
-    :style="{
-      width: isFull ? '100%' : 'auto' 
-    }"
-    @click="onClick"
-  >
+  <button v-if="!to" class="btn" @click="$emit('click')">
     <slot/>
   </button>
+  <nuxt-link v-else :to="to" class="btn">
+    <slot/>
+  </nuxt-link>
 </template>
   
 <script>
 export default {
   props: {
-    clr: {
+    to: {
       type: String,
       default: ''
-    },
-    isFull: {
-      type: Boolean
-    }
-  },
-  methods: {
-    onClick() {
-      this.$emit('myclick')
     }
   }
 }
@@ -32,24 +20,24 @@ export default {
 
 <style lang="scss" scoped>
 .btn {
+  display: block;
+  text-align: center;
   cursor: pointer;
   border: none;
-  background: #35495e;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: bold;
-  padding: 0 2rem;
-  height: 4rem;
-  line-height: 4rem;
-  border-radius: 2rem;
+  padding: 0;
+  width: 100%;
+  height: 3.75rem;
+  line-height: 3.75rem;
+  border-radius: 4px;
   &:hover {
-    background: darken(#35495e, 5%);
+    background: rgba(0, 0, 0, 1);
   }
-  &.red {
-    background: #b70f0f;
-    &:hover {
-      background: darken(#b70f0f, 5%);
-    }
+  & + & {
+    margin-top: 0.75rem;
   }
 }
 </style>

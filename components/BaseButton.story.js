@@ -1,6 +1,5 @@
 import { storiesOf } from '@storybook/vue'
 import { action } from '@storybook/addon-actions'
-import centered from '@storybook/addon-centered'
 import BaseButton from './BaseButton'
 import 'ress'
 import '../assets/css/foundation.scss'
@@ -8,17 +7,23 @@ import '../assets/css/foundation.scss'
 const testObj = {
   components: { BaseButton },
   methods: {
-    change: action('change!')
+    click: action('click!')
   }
 }
 
 storiesOf('BaseButton', module)
-  .addDecorator(centered)
-  .add('default', () => ({
+  .addDecorator(
+    () => `<div style="max-width: 300px; margin: 1rem auto;"><story/></div>`
+  )
+  .add('button', () => ({
     ...testObj,
-    template: `<BaseButton @myclick="change">テスト</BaseButton>`
+    template: `<BaseButton @click="click">テスト</BaseButton>`
   }))
-  .add('red', () => ({
+  .add('link', () => ({
     ...testObj,
-    template: `<BaseButton @myclick="change" clr="red">テスト</BaseButton>`
+    template: `<BaseButton to="/test">テスト</BaseButton>`
+  }))
+  .add('multiple', () => ({
+    ...testObj,
+    template: `<div><BaseButton to="/test">テスト</BaseButton><BaseButton @click="click">テスト</BaseButton></div>`
   }))
