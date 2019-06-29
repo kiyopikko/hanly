@@ -25,5 +25,9 @@ module.exports = async ({ config, mode }) => {
   ]
 
   config.module.rules = config.module.rules.concat(additionalRules)
+
+  config.resolve.alias.assets = path.resolve('../assets')
+  config.resolve.alias['~'] = path.resolve(__dirname, '../')
+
   return config
 }

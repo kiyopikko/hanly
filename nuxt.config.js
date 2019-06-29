@@ -23,7 +23,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['ress', '~/assets/css/foundation.scss'],
+  css: ['ress', 'leaflet/dist/leaflet.css', '~/assets/css/foundation.scss'],
   /*
    ** Plugins to load before mounting the App
    */
