@@ -21,7 +21,7 @@
 export default {
   props: {
     to: {
-      type: Number,
+      type: String,
       required: true
     },
     nickname: {

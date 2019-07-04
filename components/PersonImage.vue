@@ -1,7 +1,14 @@
 <template>
   <div class="personImage">
-    <img :src="src" alt width="80" class="img" id="pick-avatar">
+    <img
+      :id="uploadUrl ? 'pick-avatar' : ''"
+      :src="src"
+      alt
+      width="80"
+      class="img"
+    />
     <AvatarCropper
+      v-if="uploadUrl"
       trigger="#pick-avatar"
       :labels="labels"
       :upload-url="uploadUrl"
@@ -9,7 +16,7 @@
       @uploading="isUploading = true"
       @uploaded="handleUploaded"
     />
-    <Loader v-if="isUploading"/>
+    <Loader v-if="isUploading" />
   </div>
 </template>
 
@@ -32,16 +39,16 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      isUploading: false
+    }
+  },
   computed: {
     labels: () => ({
       submit: '完了',
       cancel: 'キャンセル'
     })
-  },
-  data() {
-    return {
-      isUploading: false
-    }
   },
   methods: {
     handleUploaded(res) {
