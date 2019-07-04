@@ -1,7 +1,14 @@
 <template>
   <li class="item">
     <nuxt-link :to="to" class="link">
-      <img :src="img" alt class="img">
+      <img v-if="!!img" :src="img" alt class="img" />
+      <span
+        v-else
+        class="placeholder"
+        :style="{
+          background: iconPlaceholder
+        }"
+      ></span>
       <div class="body">
         <div class="nickname">{{ nickname }}</div>
         <div class="date">{{ date }}</div>
@@ -28,6 +35,10 @@ export default {
     img: {
       type: String,
       required: true
+    },
+    iconPlaceholder: {
+      type: String,
+      default: 'rgba(255,255,255,0.2)'
     }
   }
 }
@@ -45,10 +56,14 @@ export default {
 
 .link {
   display: flex;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  text-decoration: none;
+  color: #fff;
 }
 
-.img {
+.img,
+.placeholder {
+  display: block;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;

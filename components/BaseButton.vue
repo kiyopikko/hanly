@@ -1,9 +1,9 @@
 <template>
   <button v-if="!to" class="btn" @click="$emit('click')">
-    <slot/>
+    <slot />
   </button>
   <nuxt-link v-else :to="to" class="btn">
-    <slot/>
+    <slot />
   </nuxt-link>
 </template>
   
@@ -20,6 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .btn {
+  text-decoration: none;
   display: block;
   text-align: center;
   cursor: pointer;
