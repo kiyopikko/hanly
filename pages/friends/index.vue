@@ -1,0 +1,122 @@
+<template>
+  <div>
+    <nuxt-link class="user" to="/me">
+      <img class="user__icon" :src="userImg" />
+      <div class="user__txt">マイページ</div>
+    </nuxt-link>
+    <div v-if="friends.length > 0" class="friends">
+      <h2 class="headline">友だち</h2>
+      <FriendList :list="friends" path="/friends/" />
+    </div>
+    <div v-else class="noFriends">
+      <img
+        src="https://res.cloudinary.com/kiyopikko/image/upload/v1562219254/hanly-gray_2x_pdy6qo.png"
+        alt
+        :width="178"
+      />
+      <p class="txt">右下のボタンからピンを打って近くの友だちを探しましょう</p>
+    </div>
+    <button class="pin" />
+  </div>
+</template>
+
+<script>
+import FriendList from '~/components/FriendList'
+
+export default {
+  components: {
+    FriendList
+  },
+  data() {
+    // 本来はstoreのデータをバインド
+    return {
+      friends: [
+        {
+          id: 1,
+          nickname: 'Mizuki Matsutani',
+          date: '2019/05/21 11:11'
+        },
+        {
+          id: 2,
+          nickname: 'kiyopikko',
+          date: '2019/05/21 11:12'
+        },
+        {
+          id: 3,
+          nickname: 'Kotaro Okuya',
+          date: '2019/05/21 11:13'
+        }
+      ],
+      userImg: 'https://avatars3.githubusercontent.com/u/6188979?s=40&v=4'
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.user {
+  text-decoration: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  padding-right: 1.25rem;
+  background-position: 100% calc(50% - 1px);
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='11' height='14' viewBox='0 0 11 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l9 6.333L1 13' stroke='%23fff' stroke-opacity='.2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+.user__icon {
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 50%;
+}
+
+.user__txt {
+  margin-left: 0.5rem;
+  font-size: 0.875rem;
+  color: rgba($color: #fff, $alpha: 0.7);
+}
+
+.headline {
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  margin-bottom: 0.375rem;
+  margin-top: 5.375rem;
+}
+
+.noFriends {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.txt {
+  font-size: 0.875rem;
+  color: rgba($color: #fff, $alpha: 0.7);
+  text-align: center;
+  max-width: 17.5rem;
+  margin-top: 2.5rem;
+}
+
+.pin {
+  z-index: 1;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 3.375rem;
+  height: 3.375rem;
+  border-radius: 50%;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06);
+  background-color: #ec354b;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='28' viewBox='0 0 20 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.72 10.876c0 7.21-9.72 17.084-9.72 17.084S.28 18.087.28 10.876C.28 5.4 4.632.96 10 .96s9.72 4.44 9.72 9.916zM10 14.977c2.3 0 4.166-1.903 4.166-4.25S12.3 6.477 10 6.477c-2.3 0-4.166 1.903-4.166 4.25S7.7 14.977 10 14.977z' fill='%23fff'/%3E%3C/svg%3E");
+}
+</style>
