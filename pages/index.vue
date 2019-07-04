@@ -6,11 +6,11 @@
         src="https://res.cloudinary.com/kiyopikko/image/upload/v1561802660/hanly-splash_ushtah.png"
         alt
         :width="178"
-      >
+      />
     </div>
     <div class="buttons">
-      <BaseButton>ログイン</BaseButton>
-      <BaseButton>新規登録</BaseButton>
+      <BaseButton to="/signin">ログイン</BaseButton>
+      <BaseButton to="/signup">新規登録</BaseButton>
     </div>
   </div>
 </template>
