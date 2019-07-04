@@ -10,5 +10,5 @@ const testObj = {
 
 storiesOf('PersonDetail', module).add('default', () => ({
   ...testObj,
-  template: `<PersonDetail nickname="Kiyohiko Heima" :latitude="33.58948" :longitude="130.418036" datetime="2019/11/22 10:08" />`
+  template: `<PersonDetail nickname="Kiyohiko Heima" :latitude="33.58948" :longitude="130.418036" datetime="2019/11/22 10:08" upload-url="https://httpbin.org/post" />`
 }))

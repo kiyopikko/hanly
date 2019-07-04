@@ -1,17 +1,17 @@
 <template>
   <div class="person">
     <PersonImage
-      :src="face_image_url"
+      :src="faceImageUrl"
       :upload-url="uploadUrl"
       @uploaded="(url) => $emit('uploaded', url)"
     />
     <h2 class="nickname">{{ nickname }}</h2>
     <div class="mapWrap">
-      <PersonMap :latitude="latitude" :longitude="longitude"/>
+      <PersonMap :latitude="latitude" :longitude="longitude" />
     </div>
     <p class="datetime">{{ datetime }} 時点</p>
     <div class="buttonWrap">
-      <BaseButton>戻る</BaseButton>
+      <BaseButton :to="backPath">戻る</BaseButton>
     </div>
   </div>
 </template>
@@ -44,14 +44,18 @@ export default {
       type: String,
       required: true
     },
-    face_image_url: {
+    faceImageUrl: {
       type: String,
       default:
         'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'
     },
     uploadUrl: {
       type: String,
-      default: 'https://httpbin.org/post'
+      default: ''
+    },
+    backPath: {
+      type: String,
+      default: '/'
     }
   }
 }

@@ -18,7 +18,7 @@ export default {}
 $loaderBase: 20px;
 
 .loaderWrap {
-  z-index: 10;
+  z-index: 2000;
   position: fixed;
   top: 0;
   left: 0;
@@ -41,7 +41,7 @@ $loaderBase: 20px;
   width: $loaderBase;
   height: $loaderBase;
   background: #1bd7c7;
-  opacity: 0.5;
+  opacity: 1;
   border-radius: 50%;
   animation: loader 1s infinite ease-in-out;
 }
@@ -63,7 +63,7 @@ $loaderBase: 20px;
 }
 @keyframes loader {
   0% {
-    opacity: 0.3;
+    opacity: 0.8;
     transform: translateY(0px);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
   }
@@ -74,7 +74,7 @@ $loaderBase: 20px;
     box-shadow: 0px $loaderBase 3px rgba(0, 0, 0, 0.05);
   }
   100% {
-    opacity: 0.3;
+    opacity: 0.8;
     transform: translateY(0px);
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
   }
