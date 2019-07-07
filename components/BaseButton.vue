@@ -1,8 +1,8 @@
 <template>
-  <button v-if="!to" class="btn" @click="$emit('click')">
+  <button v-if="!to" class="btn" :disabled="disabled" @click="$emit('click')">
     <slot />
   </button>
-  <nuxt-link v-else :to="to" class="btn">
+  <nuxt-link v-else :to="to" class="btn" :class="disabled && 'isDisabled'">
     <slot />
   </nuxt-link>
 </template>
@@ -13,6 +13,9 @@ export default {
     to: {
       type: String,
       default: ''
+    },
+    disabled: {
+      type: Boolean
     }
   }
 }
@@ -39,6 +42,10 @@ export default {
   }
   & + & {
     margin-top: 0.75rem;
+  }
+  &:disabled,
+  &.isDisabled {
+    opacity: 0.3;
   }
 }
 </style>

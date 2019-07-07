@@ -2,7 +2,7 @@
   <div class="personImage">
     <img
       :id="uploadUrl ? 'pick-avatar' : ''"
-      :src="src"
+      :src="src || 'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'"
       alt
       width="80"
       class="img"
@@ -12,6 +12,9 @@
       trigger="#pick-avatar"
       :labels="labels"
       :upload-url="uploadUrl"
+      :upload-headers="{
+        Authorization: `Bearer ${token}`
+      }"
       :output-options="{ width: 160, height: 160 }"
       @uploading="isUploading = true"
       @uploaded="handleUploaded"
@@ -37,6 +40,10 @@ export default {
     uploadUrl: {
       type: String,
       required: true
+    },
+    token: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -53,8 +60,7 @@ export default {
   methods: {
     handleUploaded(res) {
       this.isUploading = false
-      if (!res.data) return
-      this.$emit('uploaded', res.data.face_image_url)
+      this.$emit('uploaded', res.face_image_url)
     }
   }
 }
@@ -65,11 +71,21 @@ export default {
   color: #222;
   text-align: center;
 }
+
+.img {
+  border-radius: 50%;
+}
 </style>
 
 <style lang="scss">
 .avatar-cropper-close {
   text-decoration: none;
+}
+</style>
+
+<style lang="scss">
+.avatar-cropper .avatar-cropper-mark {
+  background: rgba(0, 0, 0, 0.7);
 }
 </style>
 

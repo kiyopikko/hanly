@@ -1,8 +1,8 @@
 <template>
   <form class="form" @submit.prevent="$emit('submit', { email, password })">
-    <BaseInput v-model="email" placeholder="メールアドレス" type="email"/>
-    <BaseInput v-model="password" placeholder="パスワード" type="password"/>
-    <BaseButton class="mts">ログイン</BaseButton>
+    <BaseInput v-model="email" placeholder="メールアドレス" type="email" />
+    <BaseInput v-model="password" placeholder="パスワード" type="password" />
+    <BaseButton class="mts" :disabled="isSending">ログイン</BaseButton>
   </form>
 </template>
 
@@ -14,6 +14,9 @@ export default {
   components: {
     BaseButton,
     BaseInput
+  },
+  props: {
+    isSending: Boolean
   },
   data() {
     return {
