@@ -3,13 +3,16 @@
     <PersonImage
       :src="faceImageUrl"
       :upload-url="uploadUrl"
+      :token="token"
       @uploaded="(url) => $emit('uploaded', url)"
     />
     <h2 class="nickname">{{ nickname }}</h2>
-    <div class="mapWrap">
+    <div v-if="latitude && latitude" class="mapWrap">
       <PersonMap :latitude="latitude" :longitude="longitude" />
     </div>
-    <p class="datetime">{{ datetime }} 時点</p>
+    <p
+      class="datetime"
+    >{{ latitude && longitude ? `${datetime} 時点` : 'まだピンを打っていません' }}</p>
     <div class="buttonWrap">
       <BaseButton :to="backPath">戻る</BaseButton>
     </div>
@@ -46,12 +49,15 @@ export default {
     },
     faceImageUrl: {
       type: String,
-      default:
-        'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'
+      required: true
     },
     uploadUrl: {
       type: String,
       default: ''
+    },
+    token: {
+      type: String,
+      required: true
     },
     backPath: {
       type: String,

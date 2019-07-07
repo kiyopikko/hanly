@@ -3,10 +3,10 @@
     class="form"
     @submit.prevent="$emit('submit', { nickname, email, password })"
   >
-    <BaseInput v-model="nickname" placeholder="ニックネーム"/>
-    <BaseInput v-model="email" placeholder="メールアドレス" type="email"/>
-    <BaseInput v-model="password" placeholder="パスワード" type="password"/>
-    <BaseButton class="mts">新規登録</BaseButton>
+    <BaseInput v-model="nickname" placeholder="ニックネーム" />
+    <BaseInput v-model="email" placeholder="メールアドレス" type="email" />
+    <BaseInput v-model="password" placeholder="パスワード" type="password" />
+    <BaseButton class="mts" :disabled="isSending">新規登録</BaseButton>
   </form>
 </template>
 
@@ -18,6 +18,9 @@ export default {
   components: {
     BaseButton,
     BaseInput
+  },
+  props: {
+    isSending: Boolean
   },
   data() {
     return {

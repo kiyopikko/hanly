@@ -16,5 +16,6 @@ storiesOf('FriendItem', module)
     template: `<FriendItem
       img="https://dummyimage.com/48x48/000/fff"
       nickname="Demo User User User User User"
-      date="2018/02/23 11:02" />`
+      date="2018/02/23 11:02"
+      to="/" />`
   }))

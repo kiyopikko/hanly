@@ -19,3 +19,7 @@ storiesOf('SignUpForm', module)
     ...testObj,
     template: `<SignUpForm @submit="submit" />`
   }))
+  .add('sending', () => ({
+    ...testObj,
+    template: `<SignUpForm :is-sending="true" @submit="submit" />`
+  }))

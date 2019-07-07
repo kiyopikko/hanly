@@ -23,6 +23,14 @@ storiesOf('BaseButton', module)
     ...testObj,
     template: `<BaseButton to="/test">テスト</BaseButton>`
   }))
+  .add('disabled button', () => ({
+    ...testObj,
+    template: `<BaseButton disabled @click="click">テスト</BaseButton>`
+  }))
+  .add('disabled link', () => ({
+    ...testObj,
+    template: `<BaseButton to="/test" disabled>テスト</BaseButton>`
+  }))
   .add('multiple', () => ({
     ...testObj,
     template: `<div><BaseButton to="/test">テスト</BaseButton><BaseButton @click="click">テスト</BaseButton></div>`
