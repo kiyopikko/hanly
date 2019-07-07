@@ -1,4 +1,4 @@
-const baseURL = 'http://18.219.182.62'
+const baseURL = 'https://lab-study.tk/'
 
 export default {
   mode: 'spa',
