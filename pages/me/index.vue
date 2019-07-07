@@ -3,7 +3,7 @@
     :nickname="nickname"
     :latitude="latitude"
     :longitude="longitude"
-    :datetime="datetime"
+    :datetime="getDateTime"
     :face-image-url="face_image_url"
     :upload-url="uploadUrl"
     :token="token"
@@ -26,6 +26,9 @@ export default {
     }
   },
   computed: {
+    getDateTime() {
+      return this.$dayjs(this.datetime).format('YYYY/MM/DD HH:mm')
+    },
     ...mapGetters('me', [
       'face_image_url',
       'nickname',
