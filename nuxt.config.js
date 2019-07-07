@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/localStorage.js', '~/plugins/dayjs.js'],
   /*
    ** Nuxt.js modules
    */
@@ -41,7 +41,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://18.219.182.62'
+  },
   /*
    ** Build configuration
    */

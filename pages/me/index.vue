@@ -4,28 +4,39 @@
     :latitude="latitude"
     :longitude="longitude"
     :datetime="datetime"
-    :face-image-url="faceImageUrl"
-    :upload-url="uploadUrl"
+    :face-image-url="face_image_url"
+    upload-url="/api/me/image"
+    :token="token"
     back-path="/friends"
+    @uploaded="imageUploaded"
   />
 </template>
 
 <script>
 import PersonDetail from '~/components/PersonDetail'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     PersonDetail
   },
   data() {
-    // 本来はstoreのデータをバインド
     return {
-      nickname: 'Kiyohiko Heima',
-      latitude: 33.58948,
-      longitude: 130.418036,
-      datetime: '2019/11/22 10:08',
-      faceImageUrl: undefined,
-      uploadUrl: 'http://3.15.44.11/api/me/image'
+      token: window.localStorage.getItem('hanly_access_token')
+    }
+  },
+  computed: {
+    ...mapGetters('me', [
+      'face_image_url',
+      'nickname',
+      'latitude',
+      'longitude',
+      'datetime'
+    ])
+  },
+  methods: {
+    imageUploaded(url) {
+      this.$store.commit('me/updateImage', url)
     }
   }
 }

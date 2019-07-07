@@ -1,12 +1,15 @@
 <template>
   <div>
     <nuxt-link class="user" to="/me">
-      <img class="user__icon" :src="userImg" />
+      <img
+        class="user__icon"
+        :src="face_image_url || 'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'"
+      />
       <div class="user__txt">マイページ</div>
     </nuxt-link>
     <div v-if="friends.length > 0" class="friends">
       <h2 class="headline">友だち</h2>
-      <FriendList :list="friends" path="/friends/" />
+      <FriendList :list="getFriends" path="/friends/" />
     </div>
     <div v-else class="noFriends">
       <img
@@ -16,38 +19,66 @@
       />
       <p class="txt">右下のボタンからピンを打って近くの友だちを探しましょう</p>
     </div>
-    <button class="pin" />
+    <button
+      class="pin"
+      :class="isPinning ? 'isPinning' : ''"
+      :disabled="isPinning"
+      @click="pin"
+    />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import FriendList from '~/components/FriendList'
 
 export default {
   components: {
     FriendList
   },
-  data() {
-    // 本来はstoreのデータをバインド
-    return {
-      friends: [
-        {
-          id: 1,
-          nickname: 'Mizuki Matsutani',
-          date: '2019/05/21 11:11'
+  computed: {
+    getFriends() {
+      return this.friends.map(f => ({
+        id: f.id,
+        nickname: f.nickname,
+        date: f.pin
+          ? this.$dayjs(f.pin.datetime).format('YYYY/MM/DD HH:mm')
+          : '',
+        img: f.face_image_url
+      }))
+    },
+    ...mapGetters('friends', ['friends', 'isPinning']),
+    ...mapGetters('me', ['face_image_url'])
+  },
+  mounted() {
+    this.$store.dispatch('friends/fetchFriends')
+  },
+  methods: {
+    pin() {
+      if (location.protocol === 'http:') {
+        // https ではない場合、位置情報取得ができないのでテスト用に適当な値を渡す
+        this.$store.dispatch('friends/pinAndMakeFriends', {
+          latitude: 33.6031263,
+          longitude: 130.3354242
+        })
+        return
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          this.$store.dispatch('friends/pinAndMakeFriends', {
+            latitude,
+            longitude
+          })
         },
-        {
-          id: 2,
-          nickname: 'kiyopikko',
-          date: '2019/05/21 11:12'
-        },
-        {
-          id: 3,
-          nickname: 'Kotaro Okuya',
-          date: '2019/05/21 11:13'
+        () => {
+          // エラー：PCからのアクセスなどで位置情報取得できない場合
+          this.$store.dispatch('friends/pinAndMakeFriends', {
+            latitude: 33.6031263,
+            longitude: 130.3354242
+          })
         }
-      ],
-      userImg: 'https://avatars3.githubusercontent.com/u/6188979?s=40&v=4'
+      )
     }
   }
 }
@@ -118,5 +149,20 @@ export default {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-image: url("data:image/svg+xml,%3Csvg width='20' height='28' viewBox='0 0 20 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M19.72 10.876c0 7.21-9.72 17.084-9.72 17.084S.28 18.087.28 10.876C.28 5.4 4.632.96 10 .96s9.72 4.44 9.72 9.916zM10 14.977c2.3 0 4.166-1.903 4.166-4.25S12.3 6.477 10 6.477c-2.3 0-4.166 1.903-4.166 4.25S7.7 14.977 10 14.977z' fill='%23fff'/%3E%3C/svg%3E");
+  &.isPinning {
+    animation: pin 0.5s infinite linear;
+  }
+  &:disabled {
+    opacity: 0.3;
+  }
+}
+
+@keyframes pin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

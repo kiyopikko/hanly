@@ -19,6 +19,7 @@
 import BaseButton from '~/components/BaseButton'
 
 export default {
+  layout: 'account',
   components: { BaseButton }
 }
 </script>

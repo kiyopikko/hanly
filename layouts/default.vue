@@ -1,8 +1,11 @@
 <template>
   <div>
-    <nuxt/>
+    <nuxt />
   </div>
 </template>
 
-<style lang="scss">
-</style>
+<script>
+export default {
+  middleware: 'authenticated'
+}
+</script>

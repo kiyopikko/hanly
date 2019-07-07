@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
-    <SignUpForm @submit="submit" />
+    <SignUpForm :is-sending="isSending" @submit="submit" />
+    <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
@@ -8,12 +9,34 @@
 import SignUpForm from '~/components/SignUpForm'
 
 export default {
+  layout: 'account',
   components: {
     SignUpForm
   },
+  data() {
+    return {
+      error: '',
+      isSending: false
+    }
+  },
   methods: {
-    submit({ nickname, email, password }) {
-      console.log(nickname, email, password)
+    async submit({ nickname, email, password }) {
+      this.isSending = true
+      try {
+        await this.$axios.post('/api/signup', {
+          nickname,
+          email,
+          password
+        })
+      } catch (e) {
+        this.isSending = false
+        this.error = '登録済みのメールアドレスです'
+        setTimeout(() => {
+          this.error = ''
+        }, 2000)
+        return
+      }
+      this.$router.push('/signin')
     }
   }
 }
