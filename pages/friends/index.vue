@@ -1,7 +1,10 @@
 <template>
   <div>
     <nuxt-link class="user" to="/me">
-      <img class="user__icon" :src="userImg" />
+      <img
+        class="user__icon"
+        :src="face_image_url || 'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'"
+      />
       <div class="user__txt">マイページ</div>
     </nuxt-link>
     <div v-if="friends.length > 0" class="friends">
@@ -47,7 +50,8 @@ export default {
           date: '2019/05/21 11:13'
         }
       ],
-      userImg: 'https://avatars3.githubusercontent.com/u/6188979?s=40&v=4'
+      face_image_url:
+        'https://avatars3.githubusercontent.com/u/6188979?s=40&v=4'
     }
   }
 }

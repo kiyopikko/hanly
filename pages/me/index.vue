@@ -4,9 +4,11 @@
     :latitude="latitude"
     :longitude="longitude"
     :datetime="datetime"
-    :face-image-url="faceImageUrl"
+    :face-image-url="face_image_url"
     :upload-url="uploadUrl"
+    :token="token"
     back-path="/friends"
+    @uploaded="imageUploaded"
   />
 </template>
 
@@ -24,8 +26,14 @@ export default {
       latitude: 33.58948,
       longitude: 130.418036,
       datetime: '2019/11/22 10:08',
-      faceImageUrl: undefined,
-      uploadUrl: 'http://3.15.44.11/api/me/image'
+      face_image_url: undefined,
+      uploadUrl: 'https://httpbin.org/post',
+      token: 'hoge'
+    }
+  },
+  methods: {
+    imageUploaded(url) {
+      console.log(url)
     }
   }
 }

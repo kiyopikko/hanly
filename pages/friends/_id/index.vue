@@ -4,7 +4,7 @@
     :latitude="latitude"
     :longitude="longitude"
     :datetime="datetime"
-    :face-image-url="faceImageUrl"
+    :face-image-url="face_image_url"
     back-path="/friends"
   />
 </template>
@@ -23,7 +23,7 @@ export default {
       latitude: 33.58948,
       longitude: 130.418036,
       datetime: '2019/11/22 10:08',
-      faceImageUrl: undefined
+      face_image_url: undefined
     }
   }
 }
