@@ -5,7 +5,7 @@
     :longitude="longitude"
     :datetime="datetime"
     :face-image-url="face_image_url"
-    upload-url="/api/me/image"
+    :upload-url="uploadUrl"
     :token="token"
     back-path="/friends"
     @uploaded="imageUploaded"
@@ -32,7 +32,8 @@ export default {
       'latitude',
       'longitude',
       'datetime'
-    ])
+    ]),
+    uploadUrl: () => process.env.baseURL + '/api/me/image'
   },
   methods: {
     imageUploaded(url) {

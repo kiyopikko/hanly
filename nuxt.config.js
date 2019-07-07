@@ -1,3 +1,5 @@
+const baseURL = 'http://18.219.182.62'
+
 export default {
   mode: 'spa',
   /*
@@ -42,7 +44,10 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'http://18.219.182.62'
+    baseURL
+  },
+  env: {
+    baseURL
   },
   /*
    ** Build configuration
