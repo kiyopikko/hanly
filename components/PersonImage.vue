@@ -35,7 +35,7 @@ export default {
   props: {
     src: {
       type: String,
-      required: true
+      default: ''
     },
     uploadUrl: {
       type: String,

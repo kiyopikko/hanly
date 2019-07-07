@@ -49,7 +49,7 @@ export default {
     },
     faceImageUrl: {
       type: String,
-      required: true
+      default: ''
     },
     uploadUrl: {
       type: String,
@@ -57,7 +57,7 @@ export default {
     },
     token: {
       type: String,
-      required: true
+      default: ''
     },
     backPath: {
       type: String,
