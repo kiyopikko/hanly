@@ -1,40 +1,44 @@
 <template>
-  <div>
-    <nuxt-link class="user" to="/me">
-      <img
-        class="user__icon"
-        :src="face_image_url || 'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'"
+  <pull-to :top-config="topConfig" :top-load-method="refresh">
+    <div>
+      <nuxt-link class="user" to="/me">
+        <img
+          class="user__icon"
+          :src="face_image_url || 'https://res.cloudinary.com/kiyopikko/image/upload/v1561617116/empty-user-image_o4ll8m.png'"
+        />
+        <div class="user__txt">マイページ</div>
+      </nuxt-link>
+      <div v-if="getFriends.length > 0" class="friends">
+        <h2 class="headline">友だち</h2>
+        <FriendList :list="getFriends" path="/friends/" />
+      </div>
+      <div v-else class="noFriends">
+        <img
+          src="https://res.cloudinary.com/kiyopikko/image/upload/v1562219254/hanly-gray_2x_pdy6qo.png"
+          alt
+          :width="178"
+        />
+        <p class="txt">右下のボタンからピンを打って近くの友だちを探しましょう</p>
+      </div>
+      <button
+        class="pin"
+        :class="isPinning ? 'isPinning' : ''"
+        :disabled="isPinning"
+        @click="pin"
       />
-      <div class="user__txt">マイページ</div>
-    </nuxt-link>
-    <div v-if="friends.length > 0" class="friends">
-      <h2 class="headline">友だち</h2>
-      <FriendList :list="getFriends" path="/friends/" />
     </div>
-    <div v-else class="noFriends">
-      <img
-        src="https://res.cloudinary.com/kiyopikko/image/upload/v1562219254/hanly-gray_2x_pdy6qo.png"
-        alt
-        :width="178"
-      />
-      <p class="txt">右下のボタンからピンを打って近くの友だちを探しましょう</p>
-    </div>
-    <button
-      class="pin"
-      :class="isPinning ? 'isPinning' : ''"
-      :disabled="isPinning"
-      @click="pin"
-    />
-  </div>
+  </pull-to>
 </template>
 
 <script>
+import PullTo from 'vue-pull-to'
 import { mapGetters } from 'vuex'
 import FriendList from '~/components/FriendList'
 
 export default {
   components: {
-    FriendList
+    FriendList,
+    PullTo
   },
   computed: {
     getFriends() {
@@ -47,6 +51,14 @@ export default {
         img: f.face_image_url
       }))
     },
+    topConfig: () => ({
+      pullText: '引っ張って更新',
+      triggerText: '手放して更新',
+      loadingText: '読み込み中...',
+      doneText: '読み込み完了',
+      failText: '読み込み失敗'
+    }),
+
     ...mapGetters('friends', ['friends', 'isPinning']),
     ...mapGetters('me', ['face_image_url'])
   },
@@ -54,6 +66,10 @@ export default {
     this.$store.dispatch('friends/fetchFriends')
   },
   methods: {
+    async refresh(loaded) {
+      await this.$store.dispatch('friends/fetchFriends')
+      loaded('done')
+    },
     pin() {
       if (location.protocol === 'http:') {
         // https ではない場合、位置情報取得ができないのでテスト用に適当な値を渡す
@@ -164,5 +180,17 @@ export default {
   100% {
     transform: rotate(360deg);
   }
+}
+</style>
+
+<style lang="scss">
+.vue-pull-to-wrapper {
+  position: absolute;
+  width: 100%;
+}
+
+.action-block {
+  color: rgba($color: #fff, $alpha: 0.3);
+  border-bottom: 1px dashed rgba($color: #fff, $alpha: 0.08);
 }
 </style>

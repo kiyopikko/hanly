@@ -22,7 +22,8 @@
     "leaflet": "^1.5.1",
     "nuxt": "^2.0.0",
     "ress": "^1.2.2",
-    "vue-avatar-cropper": "^1.0.5"
+    "vue-avatar-cropper": "^1.0.5",
+    "vue-pull-to": "^0.1.7"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
