@@ -1,17 +1,20 @@
 <template>
   <div class="wrap">
     <SignInForm :is-sending="isSending" @submit="signIn" />
+    <BaseButton to="/" class="mts" is-txt>戻る</BaseButton>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
 </template>
 
 <script>
 import SignInForm from '~/components/SignInForm'
+import BaseButton from '~/components/BaseButton'
 
 export default {
   layout: 'account',
   components: {
-    SignInForm
+    SignInForm,
+    BaseButton
   },
   data() {
     return {

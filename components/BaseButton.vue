@@ -1,8 +1,22 @@
 <template>
-  <button v-if="!to" class="btn" :disabled="disabled" @click="$emit('click')">
+  <button
+    v-if="!to"
+    class="btn"
+    :class="isTxt ? 'isTxt' : ''"
+    :disabled="disabled"
+    @click="$emit('click')"
+  >
     <slot />
   </button>
-  <nuxt-link v-else :to="to" class="btn" :class="disabled && 'isDisabled'">
+  <nuxt-link
+    v-else
+    :to="to"
+    class="btn"
+    :class="{
+    isDisabled: disabled,
+    isTxt
+  }"
+  >
     <slot />
   </nuxt-link>
 </template>
@@ -15,6 +29,9 @@ export default {
       default: ''
     },
     disabled: {
+      type: Boolean
+    },
+    isTxt: {
       type: Boolean
     }
   }
@@ -46,6 +63,10 @@ export default {
   &:disabled,
   &.isDisabled {
     opacity: 0.3;
+  }
+  &.isTxt {
+    background: transparent;
+    color: rgba($color: #fff, $alpha: 0.7);
   }
 }
 </style>
