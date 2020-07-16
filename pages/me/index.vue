@@ -16,9 +16,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PersonDetail from '~/components/PersonDetail'
 import BaseButton from '~/components/BaseButton'
-import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -55,5 +55,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

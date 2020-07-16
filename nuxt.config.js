@@ -1,4 +1,4 @@
-const baseURL = 'https://lab-study.tk/'
+const baseURL = 'https://hanly.herokuapp.com/'
 
 export default {
   mode: 'spa',
@@ -59,7 +59,7 @@ export default {
     extend(config, ctx) {}
   },
   server: {
-    port: 3000,
+    port: 3001,
     host: '0.0.0.0'
   }
 }
